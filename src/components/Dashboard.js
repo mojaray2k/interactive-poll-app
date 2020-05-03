@@ -5,22 +5,19 @@ class Dashboard extends Component {
   state = {
     showAnswered: false,
   };
-
-  showUnanswered = () => {
+  showUnaswered = () => {
     this.setState(() => ({
       showAnswered: false,
     }));
   };
-
   showAnswered = () => {
     this.setState(() => ({
       showAnswered: true,
     }));
   };
-
   render() {
     const { showAnswered } = this.state;
-    const { unanswered, answered } = this.props;
+    const { answered, unanswered } = this.props;
 
     const list = showAnswered === true ? answered : unanswered;
 
@@ -31,11 +28,11 @@ class Dashboard extends Component {
             style={{
               textDecoration: showAnswered === false ? "underline" : null,
             }}
-            onClick={this.showUnanswered}
+            onClick={this.showUnaswered}
           >
             Unanswered
           </button>
-          <span>|</span>
+          <span> | </span>
           <button
             style={{
               textDecoration: showAnswered === true ? "underline" : null,
@@ -55,8 +52,9 @@ class Dashboard extends Component {
   }
 }
 
-function mapStateToProps({ authUser, polls, users }) {
-  const answers = users[authUser].answers;
+function mapStateToProps({ authedUser, polls, users }) {
+  const answers = users[authedUser].answers;
+
   const answered = answers
     .map((id) => polls[id])
     .sort((a, b) => b.timestamp - a.timestamp);

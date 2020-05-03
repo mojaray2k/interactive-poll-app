@@ -1,27 +1,27 @@
 import React, { Component } from "react";
-import { handleInitialData } from "../actions/share";
 import { connect } from "react-redux";
-import Dashboard from "./Dashboard";
-import { LoadingBar } from "react-redux-loading";
+import { handleInitialData } from "../actions/shared";
+// import Dashboard from "./Dashboard";
+import LoadingBar from "react-redux-loading";
+import Leaderboard from "./Leaderboard";
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
-
   render() {
     return (
       <div>
         <LoadingBar />
-        {this.props.loading === true ? null : <Dashboard />}
+        {this.props.loading === true ? null : <Leaderboard />}
       </div>
     );
   }
 }
 
-function mapStateToProps({ authUser }) {
+function mapStateToProps({ authedUser }) {
   return {
-    loading: authUser === null,
+    loading: authedUser === null,
   };
 }
 
